@@ -66,6 +66,9 @@ func on_hold_tick(cat: Node, _delta: float) -> void:
 	if _unrolling:
 		_owner_idx = cat.get_player_index()
 
+func on_hold_end(_cat: Node) -> void:
+	_unrolling = false
+
 # Called when cat releases interact
 func stop_unrolling() -> void:
 	_unrolling = false

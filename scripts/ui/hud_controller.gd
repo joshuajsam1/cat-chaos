@@ -14,6 +14,8 @@ extends CanvasLayer
 var _flash_tween: Tween
 
 func _ready() -> void:
+	_setup_layout()
+
 	# Only P1 shows the timer in its HUD
 	if timer_label:
 		timer_label.visible = (player_index == 0)
@@ -29,6 +31,32 @@ func _ready() -> void:
 
 	if warning_bar:
 		warning_bar.visible = false
+
+func _setup_layout() -> void:
+	# Position all HUD elements on the correct screen half.
+	# P1 (player_index 0) → left half; P2 (player_index 1) → right half.
+	var score_panel := get_node_or_null("ScorePanel") as Control
+	if score_panel and player_index == 1:
+		score_panel.anchor_left  = 1.0
+		score_panel.anchor_right = 1.0
+		score_panel.offset_left  = -200.0
+		score_panel.offset_right = 0.0
+
+	if flash_overlay:
+		if player_index == 0:
+			flash_overlay.anchor_left  = 0.0
+			flash_overlay.anchor_right = 0.5
+		else:
+			flash_overlay.anchor_left  = 0.5
+			flash_overlay.anchor_right = 1.0
+
+	if warning_bar:
+		if player_index == 0:
+			warning_bar.anchor_left  = 0.0
+			warning_bar.anchor_right = 0.5
+		else:
+			warning_bar.anchor_left  = 0.5
+			warning_bar.anchor_right = 1.0
 
 func _on_score_changed(p_idx: int, new_score: int) -> void:
 	if p_idx != player_index:

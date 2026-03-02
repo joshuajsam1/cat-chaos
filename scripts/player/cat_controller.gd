@@ -179,10 +179,18 @@ func _handle_interact(delta: float) -> void:
 			if t and t.has_method("on_hold_tick"):
 				t.on_hold_tick(self, delta)
 
-	if Input.is_action_just_released(_prefix + "interact") and not _interact_held:
-		var t := _nearest_interactable()
-		if t and t.has_method("on_interact"):
-			t.on_interact(self)
+	if Input.is_action_just_released(_prefix + "interact"):
+		if _interact_held:
+			# End a hold interaction (e.g. stop unrolling TP)
+			var t := _nearest_interactable()
+			if t and t.has_method("on_hold_end"):
+				t.on_hold_end(self)
+			_interact_held = false
+		else:
+			# Short tap — fire interact
+			var t := _nearest_interactable()
+			if t and t.has_method("on_interact"):
+				t.on_interact(self)
 
 func _nearest_interactable() -> Node:
 	if not shape_cast:

@@ -15,8 +15,11 @@ func _ready() -> void:
 	GameManager.game_ended.connect(_on_game_ended)
 	if restart_btn:
 		restart_btn.pressed.connect(_on_restart)
+		# Prevent Enter key from triggering buttons while gameplay is active
+		restart_btn.focus_mode = Control.FOCUS_NONE
 	if menu_btn:
 		menu_btn.pressed.connect(_on_menu)
+		menu_btn.focus_mode = Control.FOCUS_NONE
 
 func _on_game_ended() -> void:
 	visible = true

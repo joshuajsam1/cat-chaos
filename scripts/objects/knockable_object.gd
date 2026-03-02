@@ -53,6 +53,9 @@ func on_hold_start(_cat: Node) -> void:
 func on_hold_tick(_cat: Node, _delta: float) -> void:
 	pass
 
+func on_hold_end(_cat: Node) -> void:
+	pass
+
 # ------------------------------------------------------------------
 
 func _knock(cat: Node) -> void:
