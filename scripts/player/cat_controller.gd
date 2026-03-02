@@ -133,13 +133,11 @@ func _handle_movement(delta: float) -> void:
 		Input.get_axis(_prefix + "move_forward", _prefix + "move_back")
 	)
 
-	# Fixed isometric axes — camera never rotates so these are constant.
-	# ISO_OFFSET is (1,1,1)-ish, so screen-right = world (+X,-Z) and
-	# screen-up = world (-X,-Z).
-	var iso_right   := Vector3( 1.0, 0.0, -1.0).normalized()  # D / Right arrow
-	var iso_forward := Vector3(-1.0, 0.0, -1.0).normalized()  # W / Up arrow
-
-	var move_dir := iso_right * raw.x + iso_forward * (-raw.y)
+	# Ask SplitScreenManager for the current flat basis for this player.
+	# This automatically accounts for the player's current camera rotation.
+	var basis := _get_flat_basis()
+	var move_dir := basis * Vector3(raw.x, 0.0, raw.y)
+	move_dir.y = 0.0
 	if move_dir.length() > 0.01:
 		move_dir = move_dir.normalized()
 
@@ -151,8 +149,17 @@ func _handle_movement(delta: float) -> void:
 
 	# Rotate cat to face movement direction
 	if move_dir.length() > 0.01:
-		var target_y := atan2(move_dir.x, move_dir.z)
-		rotation.y = lerp_angle(rotation.y, target_y, rotation_speed * delta)
+		rotation.y = lerp_angle(rotation.y, atan2(move_dir.x, move_dir.z), rotation_speed * delta)
+
+func _get_flat_basis() -> Basis:
+	# Get the SplitScreenManager from the scene tree and ask for our basis
+	var mgr := get_tree().get_nodes_in_group("split_screen_manager")
+	if mgr.size() > 0 and mgr[0].has_method("get_flat_basis"):
+		return mgr[0].get_flat_basis(player_index)
+	# Fallback: default iso axes
+	var fwd := Vector3(-1.0, 0.0, -1.0).normalized()
+	var right := Vector3(1.0, 0.0, -1.0).normalized()
+	return Basis(right, Vector3.UP, -fwd)
 
 # ── Interaction ────────────────────────────────────────────────────────────
 func _handle_interact(delta: float) -> void:

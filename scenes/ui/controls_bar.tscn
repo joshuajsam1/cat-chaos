@@ -1,0 +1,187 @@
+[gd_scene load_steps=2 format=3 uid="uid://controls_bar"]
+
+[ext_resource type="Script" path="res://scripts/ui/controls_bar.gd" id="1_bar"]
+
+; ── CanvasLayer wrapper ──────────────────────────────────────────────────
+[node name="ControlsBar" type="CanvasLayer"]
+script = ExtResource("1_bar")
+
+; ── Semi-transparent background strip ───────────────────────────────────
+[node name="Strip" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_bottom = 54.0
+color = Color(0.0, 0.0, 0.0, 0.52)
+mouse_filter = 2
+
+; ── Inner HBox — two player cards + center divider ───────────────────────
+[node name="Row" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = 52.0
+theme_override_constants/separation = 0
+
+; ═══════════════════ PLAYER 1 ═══════════════════
+[node name="P1Block" type="HBoxContainer" parent="Row"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+; ── move group ──
+[node name="MoveGroup" type="VBoxContainer" parent="Row/P1Block"]
+theme_override_constants/separation = 1
+
+[node name="MoveKey" type="Label" parent="Row/P1Block/MoveGroup"]
+text = "WASD"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(1.0, 0.55, 0.15, 1)
+
+[node name="MoveLabel" type="Label" parent="Row/P1Block/MoveGroup"]
+text = "Move"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── sprint group ──
+[node name="SprintGroup" type="VBoxContainer" parent="Row/P1Block"]
+theme_override_constants/separation = 1
+
+[node name="SprintKey" type="Label" parent="Row/P1Block/SprintGroup"]
+text = "LCtrl"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(1.0, 0.55, 0.15, 1)
+
+[node name="SprintLabel" type="Label" parent="Row/P1Block/SprintGroup"]
+text = "Sprint"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── interact group ──
+[node name="InteractGroup" type="VBoxContainer" parent="Row/P1Block"]
+theme_override_constants/separation = 1
+
+[node name="InteractKey" type="Label" parent="Row/P1Block/InteractGroup"]
+text = "Space"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(1.0, 0.55, 0.15, 1)
+
+[node name="InteractLabel" type="Label" parent="Row/P1Block/InteractGroup"]
+text = "Interact"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── sit group ──
+[node name="SitGroup" type="VBoxContainer" parent="Row/P1Block"]
+theme_override_constants/separation = 1
+
+[node name="SitKey" type="Label" parent="Row/P1Block/SitGroup"]
+text = "LShift"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(1.0, 0.55, 0.15, 1)
+
+[node name="SitLabel" type="Label" parent="Row/P1Block/SitGroup"]
+text = "Sit/Claim"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── rotate group ──
+[node name="RotGroup" type="VBoxContainer" parent="Row/P1Block"]
+theme_override_constants/separation = 1
+
+[node name="RotKey" type="Label" parent="Row/P1Block/RotGroup"]
+text = "Q ↺  E ↻"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(1.0, 0.85, 0.2, 1)
+
+[node name="RotLabel" type="Label" parent="Row/P1Block/RotGroup"]
+text = "Rotate View"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ═══════════════════ CENTRE DIVIDER ═══════════════════
+[node name="Divider" type="VSeparator" parent="Row"]
+custom_minimum_size = Vector2(2, 0)
+self_modulate = Color(1, 1, 1, 0.25)
+
+; ═══════════════════ PLAYER 2 ═══════════════════
+[node name="P2Block" type="HBoxContainer" parent="Row"]
+size_flags_horizontal = 3
+alignment = 2
+theme_override_constants/separation = 18
+
+; ── rotate group ──
+[node name="RotGroup" type="VBoxContainer" parent="Row/P2Block"]
+theme_override_constants/separation = 1
+
+[node name="RotKey" type="Label" parent="Row/P2Block/RotGroup"]
+text = ", ↺  . ↻"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.6, 0.85, 1.0, 1)
+
+[node name="RotLabel" type="Label" parent="Row/P2Block/RotGroup"]
+text = "Rotate View"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── sit group ──
+[node name="SitGroup" type="VBoxContainer" parent="Row/P2Block"]
+theme_override_constants/separation = 1
+
+[node name="SitKey" type="Label" parent="Row/P2Block/SitGroup"]
+text = "RShift"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.35, 0.65, 1.0, 1)
+
+[node name="SitLabel" type="Label" parent="Row/P2Block/SitGroup"]
+text = "Sit/Claim"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── interact group ──
+[node name="InteractGroup" type="VBoxContainer" parent="Row/P2Block"]
+theme_override_constants/separation = 1
+
+[node name="InteractKey" type="Label" parent="Row/P2Block/InteractGroup"]
+text = "Enter"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.35, 0.65, 1.0, 1)
+
+[node name="InteractLabel" type="Label" parent="Row/P2Block/InteractGroup"]
+text = "Interact"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── sprint group ──
+[node name="SprintGroup" type="VBoxContainer" parent="Row/P2Block"]
+theme_override_constants/separation = 1
+
+[node name="SprintKey" type="Label" parent="Row/P2Block/SprintGroup"]
+text = "RCtrl"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.35, 0.65, 1.0, 1)
+
+[node name="SprintLabel" type="Label" parent="Row/P2Block/SprintGroup"]
+text = "Sprint"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+
+; ── move group ──
+[node name="MoveGroup" type="VBoxContainer" parent="Row/P2Block"]
+theme_override_constants/separation = 1
+
+[node name="MoveKey" type="Label" parent="Row/P2Block/MoveGroup"]
+text = "↑↓←→"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.35, 0.65, 1.0, 1)
+
+[node name="MoveLabel" type="Label" parent="Row/P2Block/MoveGroup"]
+text = "Move"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)

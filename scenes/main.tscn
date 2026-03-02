@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://main_scene"]
+[gd_scene load_steps=6 format=3 uid="uid://main_scene"]
 
 [ext_resource type="Script" path="res://scripts/ui/main.gd" id="1_main"]
 [ext_resource type="Script" path="res://scripts/ui/split_screen_manager.gd" id="2_split"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/end_screen.tscn" id="4_end"]
+[ext_resource type="PackedScene" path="res://scenes/ui/controls_bar.tscn" id="5_bar"]
 
 ; ================================================================
 ; Main — shared-world split-screen entry point
@@ -32,7 +33,6 @@ stretch = true
 [node name="P1SubViewport" type="SubViewport" parent="SplitContainer/P1ViewportContainer"]
 size = Vector2i(956, 1080)
 handle_input_locally = false
-; own_world_3d is set to false at runtime by main.gd
 
 ; ---- 4px divider ----
 [node name="Divider" type="ColorRect" parent="SplitContainer"]
@@ -51,7 +51,7 @@ size = Vector2i(956, 1080)
 handle_input_locally = false
 
 ; ================================================================
-; HUDs (overlaid as CanvasLayer over the full window)
+; HUDs
 ; ================================================================
 [node name="P1HUD" parent="." instance=ExtResource("3_hud")]
 player_index = 0
@@ -62,7 +62,12 @@ player_index = 1
 layer = 10
 
 ; ================================================================
-; End screen (above HUDs)
+; Controls bar — transparent, always on top during gameplay
+; ================================================================
+[node name="ControlsBar" parent="." instance=ExtResource("5_bar")]
+
+; ================================================================
+; End screen (topmost)
 ; ================================================================
 [node name="EndScreen" parent="." instance=ExtResource("4_end")]
 layer = 20
