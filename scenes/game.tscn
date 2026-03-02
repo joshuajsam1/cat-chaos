@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://game_scene"]
+
+[ext_resource type="PackedScene" path="res://scenes/level/house.tscn" id="1_house"]
+[ext_resource type="PackedScene" path="res://scenes/player/cat.tscn" id="2_cat"]
+[ext_resource type="PackedScene" path="res://scenes/npcs/owner.tscn" id="3_owner"]
+[ext_resource type="PackedScene" path="res://scenes/objects/knockable_object.tscn" id="4_knock"]
+[ext_resource type="PackedScene" path="res://scenes/objects/toilet_paper.tscn" id="5_tp"]
+[ext_resource type="PackedScene" path="res://scenes/objects/laptop.tscn" id="6_laptop"]
+
+[node name="Game" type="Node3D"]
+
+; ---- House level ----
+[node name="House" parent="." instance=ExtResource("1_house")]
+
+; ---- Player 1 Cat (orange — WASD) ----
+[node name="CatP1" parent="." instance=ExtResource("2_cat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.4, 2)
+player_index = 0
+
+; ---- Player 2 Cat (grey — Arrow keys) ----
+[node name="CatP2" parent="." instance=ExtResource("2_cat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.4, 2)
+player_index = 1
+
+; ---- Owner NPC ----
+[node name="OwnerNPC" parent="." instance=ExtResource("3_owner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 6)
+waypoints = [NodePath("../../House/WaypointFrontDoor"), NodePath("../../House/WaypointHallway"), NodePath("../../House/WaypointLivingRoom")]
+
+; ---- Knockable objects (kitchen / hallway) ----
+[node name="Vase1" parent="." instance=ExtResource("4_knock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.3, -3)
+points_on_knock = 50
+
+[node name="BookStack" parent="." instance=ExtResource("4_knock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 1)
+points_on_knock = 40
+
+[node name="PlantPot" parent="." instance=ExtResource("4_knock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.3, -1)
+points_on_knock = 60
+
+[node name="CoffeeMug" parent="." instance=ExtResource("4_knock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 0.8, 0.3)
+points_on_knock = 30
+
+[node name="RemoteControl" parent="." instance=ExtResource("4_knock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 1.2)
+points_on_knock = 25
+
+; ---- Toilet paper rolls (bathroom / hallway) ----
+[node name="TPRoll1" parent="." instance=ExtResource("5_tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.1, -5)
+
+[node name="TPRoll2" parent="." instance=ExtResource("5_tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -5)
+
+; ---- Laptop (on kitchen table) ----
+[node name="Laptop" parent="." instance=ExtResource("6_laptop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.8, 0)

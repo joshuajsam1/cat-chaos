@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://laptop_object"]
+
+[ext_resource type="Script" path="res://scripts/objects/laptop_object.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_area"]
+size = Vector3(0.5, 0.1, 0.35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rb"]
+size = Vector3(0.5, 0.05, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(0.5, 0.05, 0.35)
+
+[node name="LaptopObject" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_area")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_rb")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)

@@ -1,0 +1,168 @@
+[gd_scene load_steps=13 format=3 uid="uid://house_level"]
+
+[ext_resource type="Script" path="res://scripts/level/innocent_zone.gd" id="1_innocent"]
+[ext_resource type="Script" path="res://scripts/level/house_visuals.gd" id="2_visuals"]
+
+; --- Shared collision shapes ---
+[sub_resource type="BoxShape3D" id="Floor_shape"]
+size = Vector3(20, 0.2, 16)
+
+[sub_resource type="BoxShape3D" id="WallN_shape"]
+size = Vector3(20, 3, 0.2)
+
+[sub_resource type="BoxShape3D" id="WallS_shape"]
+size = Vector3(20, 3, 0.2)
+
+[sub_resource type="BoxShape3D" id="WallE_shape"]
+size = Vector3(0.2, 3, 16)
+
+[sub_resource type="BoxShape3D" id="WallW_shape"]
+size = Vector3(0.2, 3, 16)
+
+[sub_resource type="BoxMesh" id="Floor_mesh"]
+size = Vector3(20, 0.2, 16)
+
+[sub_resource type="BoxMesh" id="Wall_mesh_h"]
+size = Vector3(20, 3, 0.2)
+
+[sub_resource type="BoxMesh" id="Wall_mesh_v"]
+size = Vector3(0.2, 3, 16)
+
+; Sofa (innocent zone trigger)
+[sub_resource type="BoxShape3D" id="Sofa_col"]
+size = Vector3(2.5, 0.8, 1.2)
+
+[sub_resource type="BoxShape3D" id="Sofa_trigger"]
+size = Vector3(2.8, 1.2, 1.5)
+
+[sub_resource type="BoxMesh" id="Sofa_mesh"]
+size = Vector3(2.5, 0.8, 1.2)
+
+; --- Table ---
+[sub_resource type="BoxShape3D" id="Table_col"]
+size = Vector3(1.2, 0.1, 0.8)
+
+[sub_resource type="BoxMesh" id="Table_mesh"]
+size = Vector3(1.2, 0.1, 0.8)
+
+[sub_resource type="BoxShape3D" id="TableLeg_col"]
+size = Vector3(0.08, 0.75, 0.08)
+
+; Navigation mesh
+[sub_resource type="NavigationMesh" id="NavMesh_1"]
+geometry/source_geometry_mode = 0
+agent/radius = 0.35
+agent/height = 1.8
+
+[node name="House" type="Node3D"]
+script = ExtResource("2_visuals")
+
+; ---- Floor ----
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("Floor_shape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("Floor_mesh")
+
+; ---- Walls ----
+[node name="WallNorth" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+collision_layer = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallNorth"]
+shape = SubResource("WallN_shape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallNorth"]
+mesh = SubResource("Wall_mesh_h")
+
+[node name="WallSouth" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 8)
+collision_layer = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallSouth"]
+shape = SubResource("WallS_shape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallSouth"]
+mesh = SubResource("Wall_mesh_h")
+
+[node name="WallEast" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 0)
+collision_layer = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallEast"]
+shape = SubResource("WallE_shape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast"]
+mesh = SubResource("Wall_mesh_v")
+
+[node name="WallWest" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.5, 0)
+collision_layer = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallWest"]
+shape = SubResource("WallW_shape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallWest"]
+mesh = SubResource("Wall_mesh_v")
+
+; ---- Sofa (living room, west side) ----
+[node name="Sofa" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.4, 0)
+collision_layer = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sofa"]
+shape = SubResource("Sofa_col")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sofa"]
+mesh = SubResource("Sofa_mesh")
+
+[node name="InnocentZone" type="Area3D" parent="Sofa"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_innocent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sofa/InnocentZone"]
+shape = SubResource("Sofa_trigger")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+
+; ---- Kitchen table (east side) ----
+[node name="KitchenTable" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.75, 0)
+collision_layer = 1
+
+[node name="TableTop" type="CollisionShape3D" parent="KitchenTable"]
+shape = SubResource("Table_col")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="KitchenTable"]
+mesh = SubResource("Table_mesh")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+; ---- Lights ----
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.433, 0.25, 0, 0.5, 0.866, -0.5, -0.75, 0.433, 0, 6, 0)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="AmbientLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+light_energy = 0.4
+omni_range = 20.0
+
+; ---- Navigation ----
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavMesh_1")
+
+; ---- Owner waypoints (used by OwnerNPC) ----
+[node name="WaypointFrontDoor" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 6)
+
+[node name="WaypointHallway" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 2)
+
+[node name="WaypointLivingRoom" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)

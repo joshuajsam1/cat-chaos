@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="16" fill="#2d2a26"/>
+  <!-- cat body -->
+  <ellipse cx="64" cy="80" rx="30" ry="24" fill="#e8b06a"/>
+  <!-- cat head -->
+  <circle cx="64" cy="50" r="22" fill="#e8b06a"/>
+  <!-- ears -->
+  <polygon points="44,34 38,16 54,28" fill="#e8b06a"/>
+  <polygon points="84,34 90,16 74,28" fill="#e8b06a"/>
+  <!-- inner ears -->
+  <polygon points="46,31 42,20 52,28" fill="#f4c8b0"/>
+  <polygon points="82,31 86,20 76,28" fill="#f4c8b0"/>
+  <!-- eyes -->
+  <ellipse cx="55" cy="48" rx="5" ry="6" fill="#1a1a1a"/>
+  <ellipse cx="73" cy="48" rx="5" ry="6" fill="#1a1a1a"/>
+  <!-- pupils -->
+  <ellipse cx="55" cy="49" rx="2" ry="4" fill="#111"/>
+  <ellipse cx="73" cy="49" rx="2" ry="4" fill="#111"/>
+  <!-- nose -->
+  <polygon points="64,55 61,58 67,58" fill="#e07090"/>
+  <!-- whiskers -->
+  <line x1="42" y1="57" x2="58" y2="59" stroke="#555" stroke-width="1.5"/>
+  <line x1="42" y1="61" x2="58" y2="61" stroke="#555" stroke-width="1.5"/>
+  <line x1="70" y1="59" x2="86" y2="57" stroke="#555" stroke-width="1.5"/>
+  <line x1="70" y1="61" x2="86" y2="61" stroke="#555" stroke-width="1.5"/>
+  <!-- chaos sparkles -->
+  <text x="8" y="118" font-size="18" fill="#f0c040">★</text>
+  <text x="100" y="30" font-size="14" fill="#f04040">💥</text>
+</svg>

@@ -1,0 +1,189 @@
+[gd_scene load_steps=2 format=3 uid="uid://menu_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_manager.gd" id="1_menu"]
+
+[node name="Menu" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_menu")
+
+; ── Dark background ──────────────────────────────────────────────
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.10, 0.09, 0.08, 1)
+
+; ── Decorative header stripe ─────────────────────────────────────
+[node name="HeaderStripe" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 100.0
+color = Color(0.16, 0.14, 0.11, 1)
+
+; ── Root layout ──────────────────────────────────────────────────
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 0
+
+; ── Title ────────────────────────────────────────────────────────
+[node name="TitleLabel" type="Label" parent="VBox"]
+custom_minimum_size = Vector2(0, 120)
+text = "🐱 CAT CHAOS 🐱"
+theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(1.0, 0.82, 0.25, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="VBox"]
+custom_minimum_size = Vector2(0, 36)
+text = "Two cats. One house. Total destruction."
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.75, 0.68, 0.55, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer1" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 24)
+
+; ── Controls row ─────────────────────────────────────────────────
+[node name="ControlsRow" type="HBoxContainer" parent="VBox"]
+alignment = 1
+theme_override_constants/separation = 32
+custom_minimum_size = Vector2(0, 260)
+
+; ── Player 1 card ────────────────────────────────────────────────
+[node name="P1Card" type="PanelContainer" parent="VBox/ControlsRow"]
+custom_minimum_size = Vector2(340, 0)
+
+[node name="P1VBox" type="VBoxContainer" parent="VBox/ControlsRow/P1Card"]
+theme_override_constants/separation = 6
+
+[node name="P1Header" type="Label" parent="VBox/ControlsRow/P1Card/P1VBox"]
+text = "🟠  PLAYER 1"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1.0, 0.55, 0.15, 1)
+horizontal_alignment = 1
+
+[node name="P1Sep" type="HSeparator" parent="VBox/ControlsRow/P1Card/P1VBox"]
+
+[node name="P1Controls" type="RichTextLabel" parent="VBox/ControlsRow/P1Card/P1VBox"]
+bbcode_enabled = true
+custom_minimum_size = Vector2(0, 180)
+fit_content = true
+theme_override_font_sizes/normal_font_size = 18
+text = "[b]Move[/b]         W A S D
+[b]Sprint[/b]       Left Ctrl  (hold)
+[b]Interact[/b]    Space  (tap or hold)
+[b]Sit / Claim[/b]  Left Shift
+
+[color=orange][b]Tap[/b][/color] interact → swipe / knock object
+[color=orange][b]Hold[/b][/color] interact → unroll TP / activate
+[color=orange][b]Sit[/b][/color] near objects → claim territory"
+
+; ── Player 2 card ────────────────────────────────────────────────
+[node name="P2Card" type="PanelContainer" parent="VBox/ControlsRow"]
+custom_minimum_size = Vector2(340, 0)
+
+[node name="P2VBox" type="VBoxContainer" parent="VBox/ControlsRow/P2Card"]
+theme_override_constants/separation = 6
+
+[node name="P2Header" type="Label" parent="VBox/ControlsRow/P2Card/P2VBox"]
+text = "🔵  PLAYER 2"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.35, 0.65, 1.0, 1)
+horizontal_alignment = 1
+
+[node name="P2Sep" type="HSeparator" parent="VBox/ControlsRow/P2Card/P2VBox"]
+
+[node name="P2Controls" type="RichTextLabel" parent="VBox/ControlsRow/P2Card/P2VBox"]
+bbcode_enabled = true
+custom_minimum_size = Vector2(0, 180)
+fit_content = true
+theme_override_font_sizes/normal_font_size = 18
+text = "[b]Move[/b]         ↑ ↓ ← →
+[b]Sprint[/b]       Right Ctrl  (hold)
+[b]Interact[/b]    Enter  (tap or hold)
+[b]Sit / Claim[/b]  Right Shift
+
+[color=cornflower_blue][b]Tap[/b][/color] interact → swipe / knock object
+[color=cornflower_blue][b]Hold[/b][/color] interact → unroll TP / activate
+[color=cornflower_blue][b]Sit[/b][/color] near objects → claim territory"
+
+; ── Scoring quick guide ───────────────────────────────────────────
+[node name="ScoringCard" type="PanelContainer" parent="VBox/ControlsRow"]
+custom_minimum_size = Vector2(300, 0)
+
+[node name="ScoreVBox" type="VBoxContainer" parent="VBox/ControlsRow/ScoringCard"]
+theme_override_constants/separation = 6
+
+[node name="ScoreHeader" type="Label" parent="VBox/ControlsRow/ScoringCard/ScoreVBox"]
+text = "🏆  SCORING"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.85, 0.3, 1)
+horizontal_alignment = 1
+
+[node name="ScoreSep" type="HSeparator" parent="VBox/ControlsRow/ScoringCard/ScoreVBox"]
+
+[node name="ScoreList" type="RichTextLabel" parent="VBox/ControlsRow/ScoringCard/ScoreVBox"]
+bbcode_enabled = true
+custom_minimum_size = Vector2(0, 180)
+fit_content = true
+theme_override_font_sizes/normal_font_size = 17
+text = "[b]Knock object[/b]     +50 pts
+[b]Steal knock[/b]       +25 pts
+[b]Hold TP roll[/b]       +5 / metre
+[b]Sit on laptop[/b]      +10 / sec
+[b]Claim territory[/b]   +30 pts
+[b]Sofa at end[/b]        +100 pts
+
+[color=yellow]90 seconds[/color] — most points wins!
+[color=red]Owner arrives at 10s[/color] remaining"
+
+; ── Rotating tip ─────────────────────────────────────────────────
+[node name="Spacer2" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 16)
+
+[node name="TipsBox" type="PanelContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 60)
+self_modulate = Color(1, 1, 0.6, 0.9)
+
+[node name="HintLabel" type="Label" parent="VBox/TipsBox"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = ""
+theme_override_font_sizes/font_size = 19
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer3" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 20)
+
+; ── Play button ───────────────────────────────────────────────────
+[node name="PlayButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(320, 70)
+size_flags_horizontal = 4
+text = "▶  PLAY  (or press Enter)"
+theme_override_font_sizes/font_size = 30
+
+[node name="Spacer4" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 10)
+
+[node name="QuitButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(160, 40)
+size_flags_horizontal = 4
+text = "Quit"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="Spacer5" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 20)
+
+; ── Timer for rotating hints ──────────────────────────────────────
+[node name="HintCycleTimer" type="Timer" parent="."]
+autostart = true

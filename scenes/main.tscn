@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://main_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/ui/split_screen_manager.gd" id="2_split"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/end_screen.tscn" id="4_end"]
+
+; ================================================================
+; Main — shared-world split-screen entry point
+; ================================================================
+[node name="Main" type="Node"]
+script = ExtResource("1_main")
+
+[node name="SplitScreenManager" type="Node" parent="."]
+script = ExtResource("2_split")
+
+; ---- Split-screen visual layout ----
+[node name="SplitContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 0
+
+; ---- Left half — Player 1 ----
+[node name="P1ViewportContainer" type="SubViewportContainer" parent="SplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="P1SubViewport" type="SubViewport" parent="SplitContainer/P1ViewportContainer"]
+size = Vector2i(956, 1080)
+handle_input_locally = false
+; own_world_3d is set to false at runtime by main.gd
+
+; ---- 4px divider ----
+[node name="Divider" type="ColorRect" parent="SplitContainer"]
+custom_minimum_size = Vector2(4, 0)
+color = Color(0.04, 0.04, 0.04, 1)
+layout_mode = 2
+
+; ---- Right half — Player 2 ----
+[node name="P2ViewportContainer" type="SubViewportContainer" parent="SplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="P2SubViewport" type="SubViewport" parent="SplitContainer/P2ViewportContainer"]
+size = Vector2i(956, 1080)
+handle_input_locally = false
+
+; ================================================================
+; HUDs (overlaid as CanvasLayer over the full window)
+; ================================================================
+[node name="P1HUD" parent="." instance=ExtResource("3_hud")]
+player_index = 0
+layer = 10
+
+[node name="P2HUD" parent="." instance=ExtResource("3_hud")]
+player_index = 1
+layer = 10
+
+; ================================================================
+; End screen (above HUDs)
+; ================================================================
+[node name="EndScreen" parent="." instance=ExtResource("4_end")]
+layer = 20
